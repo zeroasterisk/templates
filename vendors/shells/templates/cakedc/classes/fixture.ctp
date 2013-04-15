@@ -16,60 +16,66 @@
  *
  */
 ?>
-<?php 
+<?php
 include(dirname(dirname(__FILE__)) . DS .  'common_params.php');
 
 App::import('Vendor', 'Templates.Subtemplate');
-$Subtemplate = new Subtemplate($this); 
+$Subtemplate = new Subtemplate($this);
 ?>
 <?php echo '<?php' . "\n"; ?>
-/* <?php echo $model; ?> Fixture generated on: <?php echo  date('Y-m-d H:m:s') . " : ". time(); ?> */
-class <?php echo $model; ?>Fixture extends CakeTestFixture {
 /**
- * Name
- *
- * @var string
- * @access public
+ * Fixture
+ * last verified: YYYY-MM-DD by NAME
+ * created: <?php echo  date('Y-m-d H:m:s') . " : ". time(); ?>
  */
+App::import('Lib', 'AppTestFixture');
+class <?php echo $model; ?>Fixture extends AppTestFixture {
+
+	/**
+	 * Name
+	 *
+	 * @var string
+	 * @access public
+	 */
 	public $name = '<?php echo $model; ?>';
 
 <?php if ($table): ?>
-/**
- * Table
- *
- * @var string
- * @access public
- */
+	/**
+	 * Table
+	 *
+	 * @var string
+	 * @access public
+	 */
 	public $table = '<?php echo $table; ?>';
 
 <?php endif; ?>
 <?php if ($import): ?>
-/**
- * Import table name
- *
- * @var string
- * @access public
- */
+	/**
+	 * Import table name
+	 *
+	 * @var string
+	 * @access public
+	 */
 	public $import = <?php echo $import; ?>;
 
 <?php endif; ?>
 <?php if ($schema): ?>
-/**
- * Fields
- *
- * @var array
- * @access public
- */
+	/**
+	 * Fields
+	 *
+	 * @var array
+	 * @access public
+	 */
 	public $fields = <?php echo $schema; ?>;
 
 <?php endif;?>
 <?php if ($records): ?>
-/**
- * Records
- *
- * @var array
- * @access public
- */
+	/**
+	 * Records
+	 *
+	 * @var array
+	 * @access public
+	 */
 	public $records = <?php echo $records; ?>;
 
 <?php endif;?>

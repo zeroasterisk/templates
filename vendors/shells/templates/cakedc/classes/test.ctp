@@ -22,7 +22,7 @@ $Subtemplate = new Subtemplate($this);
 if ($type == 'Model'):
 	$modelName = $name = $fullClassName;
 	$singularName = Inflector::variable($fullClassName);
-	$singularHumanName = Inflector::humanize(Inflector::underscore(Inflector::singularize($fullClassName))); 
+	$singularHumanName = Inflector::humanize(Inflector::underscore(Inflector::singularize($fullClassName)));
 	if ($useAppTestCase) {
 		$localConstruction = "AppMock::getTestModel('$fullClassName');\n";
 	} else {
@@ -34,7 +34,7 @@ elseif ($type == 'Controller'):
 	$controllerVaribleName = Inflector::variable($name);
 	$modelName = Inflector::singularize($name);
 	$modelVariableName = Inflector::variable($modelName);
-	$singularHumanName = Inflector::humanize(Inflector::underscore(Inflector::singularize($modelName))); 
+	$singularHumanName = Inflector::humanize(Inflector::underscore(Inflector::singularize($modelName)));
 	$_className = substr($fullClassName, 0, strlen($fullClassName) - 10);
 	if ($useAppTestCase) {
 		$localConstruction = "AppMock::getTestController('$fullClassName');\n\t\t\$this->{$_className}->constructClasses();\n";
@@ -60,7 +60,7 @@ Mock::generate('AuthComponent', '<?php echo $fullClassName; ?>TestAuthComponent'
 <?php endif;?>
 <?php endif; ?>
 <?php if (!empty($useAppTestCase)): ?>
-App::import('Lib', 'Templates.AppTestCase');
+App::import('Lib', 'AppTestCase');
 class <?php echo $fullClassName; ?>TestCase extends AppTestCase {
 /**
  * Autoload entrypoint for fixtures dependecy solver
@@ -160,35 +160,35 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
 
 <?php
 	$implementedMethods = array();
-	$publicImplementedMethods = array('add', 'edit', 'view', 'delete', 'index'); 
+	$publicImplementedMethods = array('add', 'edit', 'view', 'delete', 'index');
 	if (count(array_diff($publicImplementedMethods, $methods)) == 0) {
 		$prefix = '';
 		$methodNamePrefix = '';
-		include(dirname(__FILE__) . DS . 'controller_test.php'); 
+		include(dirname(__FILE__) . DS . 'controller_test.php');
 		$Subtemplate->set(compact('prefix', 'methodNamePrefix'));
 		echo $Subtemplate->generate('controller', 'tests');
 	} else {
-		$publicImplementedMethods = array(); 
+		$publicImplementedMethods = array();
 	}
-	$adminImplementedMethods = array('admin_add', 'admin_edit', 'admin_view', 'admin_delete', 'admin_index'); 
+	$adminImplementedMethods = array('admin_add', 'admin_edit', 'admin_view', 'admin_delete', 'admin_index');
 	if (count(array_diff($adminImplementedMethods, $methods)) == 0) {
 		$prefix = 'admin_';
 		$methodNamePrefix = 'Admin';
-		include(dirname(__FILE__) . DS . 'controller_test.php'); 
+		include(dirname(__FILE__) . DS . 'controller_test.php');
 		$Subtemplate->set(compact('prefix', 'methodNamePrefix'));
 		echo $Subtemplate->generate('controller', 'tests');
 	} else {
-		$adminImplementedMethods = array(); 
+		$adminImplementedMethods = array();
 	}
 	$implementedMethods = array_merge($implementedMethods, $adminImplementedMethods, $publicImplementedMethods);
 endif; ?>
 
-	
+
 <?php foreach (array_diff($methods, $implementedMethods) as $method): ?>
 	//public function test<?php echo Inflector::classify($method); ?>() {
 
 	//}
-	
+
 
 <?php endforeach;?>
 }
